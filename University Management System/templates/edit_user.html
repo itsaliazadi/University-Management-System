@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Edit {{ role.capitalize() }} - {{ user.ID }}</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #f0f4f8;
+        padding: 40px;
+      }
+      .container {
+        max-width: 600px;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        margin: auto;
+      }
+      label {
+        display: block;
+        margin-top: 15px;
+        font-weight: 600;
+      }
+      input[type="text"],
+      input[type="password"],
+      input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 6px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+      }
+      button {
+        margin-top: 25px;
+        background-color: #00b894;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #019875;
+      }
+      h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #2d3436;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Edit {{ role.capitalize() }} Information</h2>
+      <form
+        method="POST"
+        action="{{ url_for('edit_user', role=role, ID=user.ID) }}"
+      >
+        <label for="ID">ID (readonly)</label>
+        <input type="text" id="ID" name="ID" value="{{ user.ID }}" readonly />
+
+        <label for="name">Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value="{{ user.name }}"
+          required
+        />
+
+        <label for="dept_name">Department Name</label>
+        <input
+          type="text"
+          id="dept_name"
+          name="dept_name"
+          value="{{ user.dept_name or '' }}"
+        />
+
+        {% if role == 'student' %}
+        <label for="extra_field">Total Credits</label>
+        <input
+          type="number"
+          id="extra_field"
+          name="extra_field"
+          min="0"
+          max="999"
+          value="{{ user.tot_cred or '' }}"
+        />
+        {% elif role == 'instructor' %}
+        <label for="extra_field">Salary</label>
+        <input
+          type="number"
+          step="0.01"
+          id="extra_field"
+          name="extra_field"
+          min="0"
+          value="{{ user.salary or '' }}"
+        />
+        {% endif %}
+
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Enter new password"
+          required
+        />
+
+        <button type="submit">Update {{ role.capitalize() }}</button>
+      </form>
+    </div>
+    <a class="back-link" href="{{ url_for('dashboard') }}"
+      >← Back to Dashboard</a
+    >
+  </body>
+</html>

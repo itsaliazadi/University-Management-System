@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{{ user }}'s Dashboard</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #e3f2fd;
+        margin: 0;
+        padding: 0;
+        color: #263238;
+      }
+
+      header {
+        background: linear-gradient(to right, #2196f3, #1565c0);
+        color: white;
+        padding: 20px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      header h1 {
+        margin: 0;
+        font-size: 26px;
+      }
+
+      .logout-button {
+        background: #c62828;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 15px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      .logout-button:hover {
+        background: #8e1b1b;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 30px auto;
+        padding: 0 20px;
+      }
+
+      .section-title {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #1565c0;
+        text-align: center;
+      }
+
+      .course-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+
+      .course-card {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 15px rgba(21, 101, 192, 0.15);
+        transition: transform 0.2s ease;
+      }
+
+      .course-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(21, 101, 192, 0.25);
+      }
+
+      .course-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #1976d2;
+        margin-bottom: 10px;
+      }
+
+      .course-info {
+        font-size: 15px;
+        margin: 5px 0;
+      }
+
+      .no-courses {
+        text-align: center;
+        font-size: 18px;
+        color: #616161;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Welcome, {{ user }}</h1>
+      <form action="/logout" method="post">
+        <button class="logout-button" type="submit">Logout</button>
+      </form>
+    </header>
+
+    <div class="container">
+      <h2 class="section-title">Your Courses</h2>
+      {% if courses %}
+      <div class="course-grid">
+        {% for course in courses %}
+        <div class="course-card">
+          <div class="course-title">{{ course.title }}</div>
+          <div class="course-info">📚 Department: {{ course.dept_name }}</div>
+          <div class="course-info">🎓 Credits: {{ course.credits }}</div>
+          <div class="course-info">📈 Grade: {{ course.grade or 'N/A' }}</div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="no-courses">No courses assigned.</p>
+      {% endif %}
+    </div>
+  </body>
+</html>
