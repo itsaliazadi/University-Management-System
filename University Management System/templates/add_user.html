@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Add New User</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #f0f4f8;
+        margin: 0;
+        padding: 0;
+      }
+      header {
+        background-color: #fff;
+        padding: 20px 0;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+      header h1 {
+        margin: 0;
+        font-size: 24px;
+        color: #2d3436;
+      }
+      .form-container {
+        max-width: 600px;
+        margin: 40px auto;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      }
+      h2 {
+        color: #2d3436;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #dfe6e9;
+        padding-bottom: 10px;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        color: #2f3542;
+        font-weight: 600;
+      }
+      input, select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #dcdde1;
+        border-radius: 6px;
+        font-size: 16px;
+      }
+      .error {
+        color: #d63031;
+        margin-bottom: 15px;
+        font-weight: 600;
+      }
+      button {
+        background-color: #0984e3;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .back-btn {
+        background-color: #636e72;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        color: white;
+        font-weight: 600;
+        display: inline-block;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Add New User</h1>
+    </header>
+    <div class="form-container">
+      <h2>Add User</h2>
+      {% if error %}
+      <p class="error">{{ error }}</p>
+      {% endif %}
+      <form action="/add_user" method="post">
+        <div class="form-group">
+          <label for="role">Role</label>
+          <select id="role" name="role" required>
+            <option value="student">Student</option>
+            <option value="instructor">Instructor</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="ID">ID</label>
+          <input type="text" id="ID" name="ID" required />
+        </div>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+        <div class="form-group">
+          <label for="dept_name">Department</label>
+          <input type="text" id="dept_name" name="dept_name" required />
+        </div>
+        <div class="form-group">
+          <label for="extra_field">Total Credits (for Student) or Salary (for Instructor)</label>
+          <input type="text" id="extra_field" name="extra_field" placeholder="Enter 0 if unknown" />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+        <button type="submit">Add User</button>
+        <a href="/dashboard" class="back-btn">Back to Dashboard</a>
+      </form>
+    </div>
+  </body>
+</html>
